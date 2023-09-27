@@ -6,11 +6,11 @@ services:
     container_name: my-mysql-container
     environment:
       MYSQL_ROOT_PASSWORD: test_password
-      MYSQL_DATABASE: test_db # Название вашей базы данных
+      MYSQL_DATABASE: test_db
       MYSQL_USER: test_user
       MYSQL_PASSWORD: test_password
     ports:
-      - "3306:3306"
+      - "1235:1235"
     volumes:
       - ./mysql-data:/var/lib/mysql
     restart: always
