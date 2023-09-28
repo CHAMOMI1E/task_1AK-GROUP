@@ -9,7 +9,6 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 
-<<<<<<< HEAD
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
@@ -31,40 +30,18 @@ class Copy(db.Model):
     reader_id = db.Column(db.Integer, db.ForeignKey('reader.id'), nullable=True)
     checkout_date = db.Column(db.DateTime)
     return_date = db.Column(db.DateTime)
-=======
-class Reader(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    last_name = db.Column(db.String(255), nullable=False)
-    first_name = db.Column(db.String(255), nullable=False)
-    patronymic = db.Column(db.String(255))
 
 
-class Book(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255), nullable=False)
-    author = db.Column(db.String(255), nullable=False)
-
-
-class Loan(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    reader_id = db.Column(db.Integer, db.ForeignKey('reader.id'), nullable=False)
-    book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
-    loan_date = db.Column(db.Date, nullable=False)
-    return_date = db.Column(db.Date)
->>>>>>> 3865874beb65c00a902909e2852ac4316af1e994
-
-
-# main page
 @app.route('/create_book', methods=['POST'])
 def create_book():
-    data = request.get_json()
-    new_book = Book(title=data['title'], author=data['author'])
+    data_title = request.form.get('title')
+    data_text = request.form.get('text')
+    new_book = Book(title=data_title, author=data_text)
     db.session.add(new_book)
     db.session.commit()
     return jsonify({'message': 'Book created successfully'})
 
 
-# Роут для создания нового читателя
 @app.route('/create_reader', methods=['POST'])
 def create_reader():
     data = request.get_json()
@@ -74,7 +51,6 @@ def create_reader():
     return jsonify({'message': 'Reader created successfully'})
 
 
-# Роут для выдачи книги читателю
 @app.route('/checkout_book', methods=['POST'])
 def checkout_book():
     data = request.get_json()
@@ -90,7 +66,6 @@ def checkout_book():
         return jsonify({'error': 'Book not available'})
 
 
-# Роут для возврата книги читателем
 @app.route('/return_book', methods=['POST'])
 def return_book():
     data = request.get_json()
@@ -106,7 +81,6 @@ def return_book():
         return jsonify({'error': 'Invalid copy or already returned'})
 
 
-# Роут для получения списка доступных книг
 @app.route('/available_books', methods=['GET'])
 def available_books():
     available_copies = Copy.query.filter_by(reader_id=None).all()
@@ -114,8 +88,9 @@ def available_books():
     return jsonify(books)
 
 
+@app.route('/')
 def main_page():
-    return render_template("templates/library.html")
+    return render_template("library.html")
 
 
 if __name__ == '__main__':
