@@ -4,7 +4,7 @@ from datetime import datetime
 from flask_migrate import Migrate
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://test_user:test_password@localhost:3306/test_db,'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://test_user:test_password@localhost:1235/test_db,'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
@@ -36,6 +36,7 @@ class Copy(db.Model):
 def create_book():
     data_title = request.form.get('title')
     data_text = request.form.get('text')
+    print(data_text,data_title)
     new_book = Book(title=data_title, author=data_text)
     db.session.add(new_book)
     db.session.commit()
@@ -93,6 +94,4 @@ def main_page():
     return render_template("library.html")
 
 
-if __name__ == '__main__':
-    db.create_all()
-    app.run(debug=True)
+
