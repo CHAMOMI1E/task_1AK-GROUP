@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавление читателя</title>
+</head>
+<body>
+<h1>Добавление читателя</h1>
+<form action="/add_reader" method="POST">
+    <label for="last_name">Фамилия:</label>
+    <input type="text" id="last_name" name="last_name" required><br><br>
+
+    <label for="first_name">Имя:</label>
+    <input type="text" id="first_name" name="first_name" required><br><br>
+
+    <label for="patronymic">Отчество:</label>
+    <input type="text" id="patronymic" name="patronymic"><br><br>
+
+    <input type="submit" value="Добавить читателя">
+</form>
+</body>
+</html>

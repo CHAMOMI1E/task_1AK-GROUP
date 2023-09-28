@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management</title>
+</head>
+<body>
+<h1>Welcome to the Library Management System</h1>
+
+<!-- Форма для создания новой книги -->
+<h2>Create a New Book</h2>
+<form action="/create_book" method="POST">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required><br>
+    <label for="author">Author:</label>
+    <input type="text" id="author" name="author" required><br>
+    <button type="submit">Create Book</button>
+</form>
+
+<!-- Форма для создания нового читателя -->
+<h2>Create a New Reader</h2>
+<form action="/create_reader" method="POST">
+    <label for="last_name">Last Name:</label>
+    <input type="text" id="last_name" name="last_name" required><br>
+    <label for="first_name">First Name:</label>
+    <input type="text" id="first_name" name="first_name" required><br>
+    <label for="patronymic">Patronymic:</label>
+    <input type="text" id="patronymic" name="patronymic"><br>
+    <button type="submit">Create Reader</button>
+</form>
+
+<!-- Форма для выдачи книги читателю -->
+<h2>Checkout a Book</h2>
+<form action="/checkout_book" method="POST">
+    <label for="copy_id">Copy ID:</label>
+    <input type="text" id="copy_id" name="copy_id" required><br>
+    <label for="reader_id">Reader ID:</label>
+    <input type="text" id="reader_id" name="reader_id" required><br>
+    <button type="submit">Checkout Book</button>
+</form>
+
+<!-- Форма для возврата книги читателем -->
+<h2>Return a Book</h2>
+<form action="/return_book" method="POST">
+    <label for="copy_id">Copy ID:</label>
+    <input type="text" id="copy_id" name="copy_id" required><br>
+    <button type="submit">Return Book</button>
+</form>
+
+<!-- Список доступных книг -->
+<h2>Available Books</h2>
+<ul>
+    {% for book in books %}
+        <li>{{ book.title }} by {{ book.author }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
